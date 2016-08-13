@@ -1,6 +1,7 @@
 package kom.securities;
 
 import javax.inject.Inject;
+import javax.websocket.server.PathParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -16,15 +17,19 @@ public class SecurityResource {
 
     @Inject
     private SecurityService securityService;
+
     private Security security = new Security();
+
     List<String> list = new ArrayList<>();
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public List<String> getData () {
+    @Path("{name}")
+    public List<String> getData(@PathParam("name") String path) {
 
         LOGGER.info("Set Ticker.");
-        security.setTicket("acet");
+        security.setTicket(path);
+        LOGGER.info("Set Ticker.");
 
         LOGGER.info("Set Price.");
         security.setPrice(securityService.SearchPrice(security.getTicket()));
@@ -36,5 +41,6 @@ public class SecurityResource {
         list.add(security.getPrice());
         return new ArrayList<>(list);
     }
+
 
 }

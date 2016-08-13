@@ -13,11 +13,12 @@ public class SecurityService {
 
     private static final Logger LOGGER = Logger.getLogger(SecurityService.class.getName());
 
-    public String SearchPrice (String ticket) {
+    public String SearchPrice(String ticker) {
         LOGGER.info("Start Searching Price.");
+        LOGGER.info("DATA = " + ticker);
         Document doc;
         String price = "";
-        String url = String.format("http://www.nasdaq.com/symbol/%s/real-time", ticket);
+        String url = String.format("http://www.nasdaq.com/symbol/%s/real-time", ticker);
         try {
 
             doc = Jsoup.connect(url).get();
